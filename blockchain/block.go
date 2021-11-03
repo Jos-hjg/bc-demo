@@ -26,7 +26,6 @@ type BlockHeader struct {
 	time           time.Time //区块创建时间
 	bits           int       //难度相关
 	nonce          int       //挖矿相关
-
 }
 
 func (bh *BlockHeader) Stringify() string {

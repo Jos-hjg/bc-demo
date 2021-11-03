@@ -1,11 +1,28 @@
 package main
 
 import (
-	"fmt"
-	"github.com/Jos-hjg/bc-demo/blockchain"
+	"github.com/syndtr/goleveldb/leveldb"
+	"log"
 )
 
 func main() {
-	b := blockchain.NewBlock("", "Gensis Block.")
-	fmt.Println(b)
+	dbPath := "leveldb"
+	db, err := leveldb.OpenFile(dbPath, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	key := "mango"
+	if err := db.Put([]byte(key), []byte("yellow"), nil); err != nil {
+		log.Fatal(err)
+	}
+	log.Println("put success!")
+
+	data, err := db.Get([]byte(key), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(data, string(data))
+
 }
