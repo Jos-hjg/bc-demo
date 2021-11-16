@@ -19,6 +19,11 @@ func main() {
 	}
 	log.Println("put success!")
 
+	changeValue := "none"
+	if err := db.Put([]byte(key), []byte(changeValue), nil); err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("change key(\"%s\") to \"%s\"", key, changeValue)
 	data, err := db.Get([]byte(key), nil)
 	if err != nil {
 		log.Fatal(err)
